@@ -29,14 +29,77 @@ BasicGame.Game.prototype = {
 
     create: function () {
 
-        //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+
+        // create this.player sprite
+        this.player = new RPGPlayerCharacterControler(this.game, 128, 128, 'player');
+        this.game.physics.p2.enable(this.player);
+
         this.playButton = this.add.button(8, 8, 'buttons', this.quitGame, this, 'quit_over', 'quit_normal', 'quit_pressed');
+        this.playButton.fixedToCamera = true;
+
+        this.camera.follow(this.playerTank,Phaser.Camera.FOLLOW_TOPDOWN);
 
     },
 
     update: function () {
 
         //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
+/*
+        this.player.body.setZeroVelocity();
+        var speed = 200;
+        if (this.cursors.left.isDown)
+        {
+            this.player.direction = 'LEFT';
+            this.player.body.moveLeft(speed);
+            this.player.animations.play('walk_left');
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.player.direction = 'RIGHT';
+            this.player.body.moveRight(speed);
+            this.player.animations.play('walk_right');
+        }
+        else if (this.cursors.up.isDown)
+        {
+            this.player.direction = 'UP';
+            this.player.body.moveUp(speed);
+            this.player.animations.play('walk_up');
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.player.direction = 'DOWN';
+            this.player.body.moveDown(speed);
+            this.player.animations.play('walk_down');
+        }
+        else
+        {
+            if(this.player.direction == 'LEFT')
+            {
+                this.player.animations.play('idle_left');
+            }
+            else if(this.player.direction == 'RIGHT')
+            {
+                
+                this.player.animations.play('idle_right');
+            }
+            else if(this.player.direction == 'UP')
+            {
+                
+                this.player.animations.play('idle_up');
+            }
+            else if(this.player.direction == 'DOWN')
+            {
+                this.player.animations.play('idle_down');
+            }
+        }
+        */
+    },
+
+    render: function () {
+
+        this.game.debug.spriteInfo(this.player, 20, 32);
 
     },
 
@@ -46,7 +109,7 @@ BasicGame.Game.prototype = {
         //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
 
         //  Then let's go back to the main menu.
-        this.state.start('MainMenu');
+        //this.state.start('MainMenu');
 
     }
 
